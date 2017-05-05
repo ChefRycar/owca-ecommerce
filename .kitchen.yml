@@ -1,0 +1,23 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[owca-ecommerce::tksetup]
+      - recipe[owca-ecommerce::default]
+    attributes:
+    verifier:
+      inspec_tests:
+        - name: ssl-baseline
+          url: https://github.com/dev-sec/ssl-baseline/archive/v1.1.1.tar.gz
